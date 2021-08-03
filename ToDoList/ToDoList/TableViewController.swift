@@ -9,9 +9,9 @@ import UIKit
 
 class TableViewController: UITableViewController {
     
-    var listOfToDo : [ToDoClass] = []
+    var listOfToDo : [ToDoCD] = []
     
-    func createToDo() -> [ToDoClass] {
+    /* func createToDo() -> [ToDoClass] {
         
         let swiftToDo = ToDoClass()
         swiftToDo.description = "Learn Swift"
@@ -30,9 +30,21 @@ class TableViewController: UITableViewController {
       listOfToDo = createToDo()
         
     }
+ */
 
-    // MARK: - Table view data source
+    func getToDos() {
+         if let accessToCoreData = (UIApplication.shared.delegate as? AppDelegate)?.persistentContainer.viewContext {
 
+         if let dataFromCoreData = try? accessToCoreData.fetch(ToDoCD.fetchRequest()) as? [ToDoCD] {
+              listOfToDo = dataFromCoreData
+              tableView.reloadData()
+              }
+         }
+    }
+
+
+
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
             // #warning Incomplete implementation, return the number of sections
             return 0
@@ -49,16 +61,20 @@ class TableViewController: UITableViewController {
         
         cell.textLabel?.text = eachToDo.description
         
-        if eachToDo.important {
-            cell.textLabel?.text = "!" + eachToDo.description
+        if let thereIsDescription = eachToDo.descriptionInCD {
+        if eachToDo.importantInCD {
+            cell.textLabel?.text = "!" + thereIsDescription
         } else {
-            cell.textLabel?.text = eachToDo.description
+            cell.textLabel?.text = thereIsDescription
         }
             return cell
     }
-    
+   
+        func viewWillAppear(_ animated : Bool) {
+            getToDos()
+        }
 
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let nextAddToDoVC = segue.destination as?
             AddToDoViewController {
             nextAddToDoVC.previousToDoTVC = self
@@ -71,7 +87,7 @@ class TableViewController: UITableViewController {
              }
         }
 
-    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 
              // this gives us a single ToDo
              let eachToDo = listOfToDo[indexPath.row]
@@ -85,3 +101,5 @@ class TableViewController: UITableViewController {
     }
 
 
+
+}

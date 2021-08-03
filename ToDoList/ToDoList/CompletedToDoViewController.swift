@@ -9,19 +9,22 @@ import UIKit
 
 class CompletedToDoViewController: UIViewController {
 
+var previousToDoTVC = TableViewController()
+var selectedToDo : ToDoCD?
+
     @IBOutlet weak var toDoDisplay: UILabel!
    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        toDoDisplay.text = selectedToDo.description
+        toDoDisplay.text = selectedToDo?.descriptionInCD
+    
     }
     
     @IBAction func completeTapped(_ sender: UIButton) {
     }
     
-var previousToDoTVC = TableViewController()
-var selectedToDo = ToDoClass()
+
 }
 
     /*
