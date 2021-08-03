@@ -44,18 +44,17 @@ class AddToDoViewController: UIViewController {
          navigationController?.popViewController(animated: true)
     }
 
-        // let newToDo = ToDoClass()
+    /*
+ let newToDo = ToDoClass()
         
-    // if let checkForInput = descriptionInput.text {
-        // newToDo.description = checkForInput
-       // newToDo.important = switchInput.isOn
-    //}
-    
+    if let checkForInput = descriptionInput.text {
+        newToDo.description = checkForInput
+       newToDo.important = switchInput.isOn
     previousToDoTVC.listOfToDo.append(newToDo)
     previousToDoTVC.tableView.reloadData()
-    navigationController?.popViewController(animated:true)
-}
-
+    */
+ 
+ 
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
     
@@ -65,3 +64,4 @@ class AddToDoViewController: UIViewController {
 
     
     
+}
